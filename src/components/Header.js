@@ -1,25 +1,28 @@
-// Header.js
 import React from 'react';
-import '../styles/Header.css';
-const Header = () => {
+import { Link } from 'react-router-dom';
+
+function Header({ user, onLogout }) {
   return (
-    <header className="header">
-      <div className="logo">
-        <h1>
-            <img style={{width:'100px'}} src='https://www.idealz.com/on/demandware.static/Sites-Idealz-ae-Site/-/default/dw3a3f24e0/images/newlogo/new-logo@3x.png'/>
-        </h1>
-      </div>
+    <header>
+      <Link to="/" className="logo">ArtistHub</Link>
       <nav>
-        <ul className="nav-links">
-          <li><a href="#home">Need Help? Contact us</a></li>
-          <li><a href="#about">Call 0800-IDEALZ</a></li>
-          <li><a href="#services">AED</a></li>
-          <li><a href="#contact">العربية</a></li>
-          <li><a href='#login'>Register/Login</a></li>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li className="dropdown">
+            <button className="avatar-button">
+              <img src={user.profilePicture ? URL.createObjectURL(user.profilePicture) : '/placeholder.svg'} alt={user.name} className="avatar" />
+              {user.name}
+            </button>
+            <div className="dropdown-content">
+              <Link to="/profile">Profile</Link>
+              <a href="#" onClick={onLogout}>Logout</a>
+            </div>
+          </li>
         </ul>
       </nav>
     </header>
   );
-};
+}
 
 export default Header;
+
